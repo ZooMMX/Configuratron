@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+apply plugin: 'application'
+apply plugin: 'idea'
+
+version = '1.0'
+
+mainClassName = "phesus.configuratron.ConfiguratorApp"
+
+sourceCompatibility = 7
+targetCompatibility = 7
+
+title = 'Facturatron'
+
+task "create-dirs" << {
+   sourceSets*.java.srcDirs*.each { it.mkdirs() }
+   sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
