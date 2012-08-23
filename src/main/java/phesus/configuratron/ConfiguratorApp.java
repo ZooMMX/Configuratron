@@ -24,7 +24,7 @@ package phesus.configuratron;
             AnchorPane page = (AnchorPane) FXMLLoader.load(ConfiguratorApp.class.getResource("configurator.fxml"));
             Scene scene = new Scene(page);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("FXML is Simple");
+            primaryStage.setTitle("Configuratron");
             primaryStage.show();
         } catch (Exception ex) {
             Logger.getLogger(ConfiguratorApp.class.getName()).log(Level.SEVERE, null, ex);
