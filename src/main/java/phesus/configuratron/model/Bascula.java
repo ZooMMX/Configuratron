@@ -1,5 +1,10 @@
 package phesus.configuratron.model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Octavio
@@ -8,29 +13,33 @@ package phesus.configuratron.model;
  * To change this template use File | Settings | File Templates.
  */
 public class Bascula {
-    private Boolean activa;
-    private String  puerto;
+    private BooleanProperty activa;
+    private StringProperty port;
     private Integer baud;
     private Integer bits;
     private Integer stopBits;
-    private String  parity;
-    private String  stopChar;
-    private String  weightCommand;
+    private StringProperty  parity;
+    private StringProperty  stopChar;
+    private StringProperty  weightCommand;
 
-    public Boolean getActiva() {
+    public BooleanProperty getActiva() {
         return activa;
     }
 
     public void setActiva(Boolean activa) {
-        this.activa = activa;
+        BooleanProperty a = new SimpleBooleanProperty();
+        a.set(activa);
+        this.activa = a;
     }
 
-    public String getPuerto() {
-        return puerto;
+    public StringProperty getPort() {
+        return port;
     }
 
     public void setPort(String puerto) {
-        this.puerto = puerto;
+        StringProperty port = new SimpleStringProperty();
+        port.set(puerto);
+        this.port = port;
     }
 
     public Integer getBaud() {
@@ -57,27 +66,33 @@ public class Bascula {
         this.stopBits = stopBits;
     }
 
-    public String getParity() {
+    public StringProperty getParity() {
         return parity;
     }
 
     public void setParity(String parity) {
-        this.parity = parity;
+        StringProperty p = new SimpleStringProperty();
+        p.set(parity);
+        this.parity = p;
     }
 
-    public String getStopChar() {
+    public StringProperty getStopChar() {
         return stopChar;
     }
 
     public void setStopChar(String stopChar) {
-        this.stopChar = stopChar;
+        StringProperty sc = new SimpleStringProperty();
+        sc.set( stopChar );
+        this.stopChar = sc;
     }
 
-    public String getWeightCommand() {
+    public StringProperty getWeightCommand() {
         return weightCommand;
     }
 
     public void setWeightCommand(String weightCommand) {
-        this.weightCommand = weightCommand;
+        StringProperty cmd = new SimpleStringProperty();
+        cmd.set(weightCommand);
+        this.weightCommand = cmd;
     }
 }

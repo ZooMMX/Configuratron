@@ -22,28 +22,28 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="65.0" layoutX="13.0" layoutY="89.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" style="-fx-arc-height: 10;&#10;-fx-arc-width: 10;" width="432.0000915527344" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="65.0" layoutX="13.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" style="-fx-arc-height: 10;&#10;-fx-arc-width: 10;" width="432.0000915527344" />
                 <Label layoutX="22.0" layoutY="271.0" text="Paridad" />
-                <TextField layoutX="343.0" layoutY="268.0" prefWidth="88.0" />
+                <TextField id="stopCharScanner" fx:id="stopCharScale" layoutX="343.0" layoutY="268.0" prefWidth="88.0" />
                 <Label layoutX="237.0" layoutY="271.0" text="Stop char" />
                 <TextField fx:id="puertoImpresora" layoutX="132.0" layoutY="49.0" prefWidth="299.0" />
                 <Label layoutX="22.0" layoutY="25.0" text="Impresora de ticket" />
-                <ToggleButton layoutX="185.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,2;&#10;" text="Inactiva">
+                <ToggleButton fx:id="impresoraInactiva" layoutX="185.0" layoutY="23.0" mnemonicParsing="false" selected="true" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,1;" text="Inactiva">
                   <toggleGroup>
-                    <ToggleGroup fx:id="x4" />
+                    <ToggleGroup fx:id="toggleGroup4" />
                   </toggleGroup>
                 </ToggleButton>
-                <ToggleButton layoutX="132.0" layoutY="96.0" mnemonicParsing="false" selected="true" style="-fx-background-radius: 0,0,0,0;&#10;" text="Activo">
+                <ToggleButton fx:id="scannerActivo" layoutX="132.0" layoutY="96.0" mnemonicParsing="false" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,1;" text="Activo">
                   <toggleGroup>
                     <ToggleGroup fx:id="x1" />
                   </toggleGroup>
                 </ToggleButton>
-                <ToggleButton layoutX="185.0" layoutY="96.0" mnemonicParsing="false" style="-fx-background-radius: 0,0,0,0;&#10;" text="Inactivo" toggleGroup="$x1" />
-                <ToggleButton layoutX="132.0" layoutY="23.0" mnemonicParsing="false" selected="true" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,2;&#10;" text="Activa" toggleGroup="$x4" />
-                <ToggleButton layoutX="132.0" layoutY="173.0" mnemonicParsing="false" selected="true" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,1;&#10;&#10;" text="Activa">
+                <ToggleButton fx:id="scannerInactivo" layoutX="185.0" layoutY="96.0" mnemonicParsing="false" selected="true" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,1;" text="Inactivo" toggleGroup="$x1" />
+                <ToggleButton fx:id="impresoraActiva" layoutX="132.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,1;" text="Activa" toggleGroup="$toggleGroup4" />
+                <ToggleButton fx:id="basculaActiva" layoutX="132.0" layoutY="173.0" mnemonicParsing="false" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,1;&#10;&#10;" text="Activa">
                   <toggleGroup>
                     <ToggleGroup fx:id="x2" />
                   </toggleGroup>
                 </ToggleButton>
-                <ToggleButton layoutX="185.0" layoutY="173.0" mnemonicParsing="false" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,1;" text="Inactiva" toggleGroup="$x2" />
+                <ToggleButton fx:id="basculaInactiva" layoutX="185.0" layoutY="173.0" mnemonicParsing="false" selected="true" style="-fx-background-radius: 0,0,0,0;&#10;-fx-background-insets: 0,0,1,1;" text="Inactiva" toggleGroup="$x2" />
                 <Label layoutX="22.0" layoutY="52.0" text="Puerto" />
                 <Label layoutX="22.0" layoutY="99.0" text="Scanner" />
                 <TextField fx:id="puertoScanner" layoutX="132.0" layoutY="125.0" prefWidth="88.0" />
@@ -51,17 +51,17 @@
                 <TextField layoutX="343.0" layoutY="125.0" prefWidth="87.9998779296875" />
                 <Label layoutX="237.0" layoutY="128.0" text="Baud rate" />
                 <Label layoutX="22.0" layoutY="175.0" text="Báscula" />
-                <TextField layoutX="132.0" layoutY="204.0" prefWidth="88.0" />
+                <TextField id="puertoBascula" fx:id="portScale" layoutX="132.0" layoutY="204.0" prefWidth="88.0" />
                 <Label layoutX="22.0" layoutY="207.0" text="Puerto" />
-                <TextField layoutX="343.0" layoutY="204.0" prefWidth="88.0" />
+                <TextField id="baudScanner" fx:id="baudScale" layoutX="343.0" layoutY="204.0" prefWidth="88.0" />
                 <Label layoutX="237.0" layoutY="207.0" text="Baud rate" />
-                <TextField layoutX="132.0" layoutY="236.0" prefWidth="88.0" />
+                <TextField id="bitsScanner" fx:id="bitsScale" layoutX="132.0" layoutY="236.0" prefWidth="88.0" />
                 <Label layoutX="22.0" layoutY="239.0" text="Bits" />
-                <TextField layoutX="343.0" layoutY="236.0" prefWidth="88.0" />
+                <TextField id="stopBitScanner" fx:id="stopBitScale" layoutX="343.0" layoutY="236.0" prefWidth="88.0" />
                 <Label layoutX="237.0" layoutY="239.0" text="Stop bit" />
-                <TextField layoutX="132.0" layoutY="268.0" prefWidth="88.0" />
+                <TextField id="parityScanner" fx:id="parityScale" layoutX="132.0" layoutY="268.0" prefWidth="88.0" />
                 <Label layoutX="22.0" layoutY="302.0" text="Comando" />
-                <TextField layoutX="132.0" layoutY="299.0" prefWidth="299.0" />
+                <TextField id="weightCommandScanner" fx:id="weightCommandScale" layoutX="132.0" layoutY="299.0" prefWidth="299.0" />
               </children>
             </AnchorPane>
           </content>

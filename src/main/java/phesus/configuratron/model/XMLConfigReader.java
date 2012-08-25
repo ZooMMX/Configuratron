@@ -92,6 +92,7 @@ public class XMLConfigReader {
         } catch (Exception e) {
             bascula.setStopBits( 0 );
         }
+        bascula.setParity( (String) readProperty("//bascula/@parity", XPathConstants.STRING) );
         bascula.setStopChar( (String) readProperty("//bascula/@stopChar", XPathConstants.STRING) );
         bascula.setWeightCommand( (String) readProperty("//bascula/@weightCommand", XPathConstants.STRING) );
 

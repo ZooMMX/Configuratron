@@ -1,9 +1,6 @@
 package phesus.configuratron.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,10 +21,10 @@ public class Configuration {
     private StringProperty userBD;
     private StringProperty passBD;
 
-    private Boolean impresoraActiva;
+    private BooleanProperty impresoraActiva;
     private StringProperty  puertoImpresion;
 
-    private Boolean scannerActivo;
+    private BooleanProperty scannerActivo;
     private StringProperty  scannerPort;
     private Integer scannerBaudRate;
 
@@ -115,12 +112,14 @@ public class Configuration {
         this.passBD = pass;
     }
 
-    public Boolean getImpresoraActiva() {
+    public BooleanProperty getImpresoraActiva() {
         return impresoraActiva;
     }
 
     public void setImpresoraActiva(Boolean impresoraActiva) {
-        this.impresoraActiva = impresoraActiva;
+        BooleanProperty activa = new SimpleBooleanProperty();
+        activa.set(impresoraActiva);
+        this.impresoraActiva = activa;
     }
 
     public StringProperty getPuertoImpresion() {
@@ -133,12 +132,14 @@ public class Configuration {
         this.puertoImpresion = puerto;
     }
 
-    public Boolean getScannerActivo() {
+    public BooleanProperty getScannerActivo() {
         return scannerActivo;
     }
 
     public void setScannerActivo(Boolean scannerActivo) {
-        this.scannerActivo = scannerActivo;
+        BooleanProperty activo = new SimpleBooleanProperty();
+        activo.set(scannerActivo);
+        this.scannerActivo = activo;
     }
 
     public StringProperty getScannerPort() {
