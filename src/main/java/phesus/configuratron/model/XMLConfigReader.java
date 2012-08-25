@@ -35,7 +35,67 @@ public class XMLConfigReader {
         DocumentBuilder builder = domFactory.newDocumentBuilder();
         doc = builder.parse("config.xml");
 
+        config.setResolucionAlto( Integer.valueOf((String) readProperty("//resolucionPantalla/@ancho", XPathConstants.STRING)) );
+        config.setResolucionAncho(Integer.valueOf((String) readProperty("//resolucionPantalla/@alto", XPathConstants.STRING)) );
+
+        config.setIdAlmacen(Integer.valueOf((String) readProperty("//idAlmacen", XPathConstants.STRING)));
+        config.setIdCaja   (Integer.valueOf((String) readProperty("//idCaja"   , XPathConstants.STRING)));
+        config.setTipoCorte(Integer.valueOf((String) readProperty("//tipoCorte", XPathConstants.STRING)));
+
         config.setUrlNadesico((String) readProperty("//URLServidor/text()", XPathConstants.STRING));
+        config.setUrlMySQL   ((String) readProperty("//URLMySQL/text()"   , XPathConstants.STRING));
+        config.setUserBD     ((String) readProperty("//loginJasper/text()", XPathConstants.STRING));
+        config.setPassBD     ((String) readProperty("//passJasper/text()" , XPathConstants.STRING));
+
+        //--------------------- Impresora
+        try {
+            config.setImpresoraActiva( Boolean.valueOf( (String) readProperty("//impresoraActiva", XPathConstants.STRING) ) );
+        } catch (Exception e) {
+            config.setImpresoraActiva( false );
+        }
+        config.setPuertoImpresion( (String) readProperty("//puertoImpresion", XPathConstants.STRING) );
+
+        //--------------------- Scanner
+        try {
+            config.setScannerActivo  ( Boolean.valueOf( (String) readProperty("//scannerActivo", XPathConstants.STRING) ) );
+        } catch (Exception e) {
+            config.setScannerActivo( false );
+        }
+        config.setScannerPort    ( (String) readProperty("//scannerPort"    , XPathConstants.STRING) );
+        try {
+            config.setScannerBaudRate( Integer.valueOf((String) readProperty("//scannerBaudRate", XPathConstants.STRING)) );
+        } catch (Exception e) {
+            config.setScannerBaudRate( 0 );
+        }
+
+        //--------------------- Báscula
+        Bascula bascula = new Bascula();
+
+        try {
+            bascula.setActiva( Boolean.valueOf( (String) readProperty("//bascula/@activa", XPathConstants.STRING) ) );
+        } catch (Exception e) {
+            bascula.setActiva( false );
+        }
+        bascula.setPort( (String) readProperty("//bascula/@port", XPathConstants.STRING) );
+        try {
+            bascula.setBaud( Integer.valueOf((String) readProperty("//bascula/@baud", XPathConstants.STRING)) );
+        } catch (Exception e) {
+            bascula.setBaud( 0 );
+        }
+        try {
+            bascula.setBits( Integer.valueOf((String) readProperty("//bascula/@bits", XPathConstants.STRING)) );
+        } catch (Exception e) {
+            bascula.setBits( 0 );
+        }
+        try {
+            bascula.setStopBits( Integer.valueOf((String) readProperty("//bascula/@stopBits", XPathConstants.STRING)) );
+        } catch (Exception e) {
+            bascula.setStopBits( 0 );
+        }
+        bascula.setStopChar( (String) readProperty("//bascula/@stopChar", XPathConstants.STRING) );
+        bascula.setWeightCommand( (String) readProperty("//bascula/@weightCommand", XPathConstants.STRING) );
+
+        config.setBascula(bascula);
 
     }
 

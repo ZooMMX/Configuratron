@@ -1,5 +1,10 @@
 package phesus.configuratron.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Octavio
@@ -8,32 +13,34 @@ package phesus.configuratron.model;
  * To change this template use File | Settings | File Templates.
  */
 public class Configuration {
-    private Integer resolucionAncho;
+    private IntegerProperty resolucionAncho;
     private Integer resolucionAlto;
     private Integer idSucursal;
     private Integer idCaja;
-    private Integer idTipoCorte;
+    private Integer tipoCorte;
 
-    private String urlNadesico;
-    private String uslMySQL;
-    private String userBD;
-    private String passBD;
+    private StringProperty urlNadesico;
+    private StringProperty urlMySQL;
+    private StringProperty userBD;
+    private StringProperty passBD;
 
     private Boolean impresoraActiva;
-    private String  puertoImpresion;
+    private StringProperty  puertoImpresion;
 
     private Boolean scannerActivo;
-    private Integer scannerPort;
+    private StringProperty  scannerPort;
     private Integer scannerBaudRate;
 
     private Bascula bascula;
 
-    public Integer getResolucionAncho() {
+    public IntegerProperty getResolucionAncho() {
         return resolucionAncho;
     }
 
     public void setResolucionAncho(Integer resolucionAncho) {
-        this.resolucionAncho = resolucionAncho;
+        IntegerProperty res = new SimpleIntegerProperty();
+        res.set(resolucionAncho);
+        this.resolucionAncho = res;
     }
 
     public Integer getResolucionAlto() {
@@ -48,7 +55,7 @@ public class Configuration {
         return idSucursal;
     }
 
-    public void setIdSucursal(Integer idSucursal) {
+    public void setIdAlmacen(Integer idSucursal) {
         this.idSucursal = idSucursal;
     }
 
@@ -60,44 +67,52 @@ public class Configuration {
         this.idCaja = idCaja;
     }
 
-    public Integer getIdTipoCorte() {
-        return idTipoCorte;
+    public Integer getTipoCorte() {
+        return tipoCorte;
     }
 
-    public void setIdTipoCorte(Integer idTipoCorte) {
-        this.idTipoCorte = idTipoCorte;
+    public void setTipoCorte(Integer tipoCorte) {
+        this.tipoCorte = tipoCorte;
     }
 
-    public String getUrlNadesico() {
+    public StringProperty getUrlNadesico() {
         return urlNadesico;
     }
 
     public void setUrlNadesico(String urlNadesico) {
-        this.urlNadesico = urlNadesico;
+        StringProperty url = new SimpleStringProperty();
+        url.setValue(urlNadesico);
+        this.urlNadesico = url;
     }
 
-    public String getUslMySQL() {
-        return uslMySQL;
+    public StringProperty getUrlMySQL() {
+        return urlMySQL;
     }
 
-    public void setUslMySQL(String uslMySQL) {
-        this.uslMySQL = uslMySQL;
+    public void setUrlMySQL(String urlMySQL) {
+        StringProperty url = new SimpleStringProperty();
+        url.setValue(urlMySQL);
+        this.urlMySQL = url;
     }
 
-    public String getUserBD() {
+    public StringProperty getUserBD() {
         return userBD;
     }
 
     public void setUserBD(String userBD) {
-        this.userBD = userBD;
+        StringProperty user = new SimpleStringProperty();
+        user.setValue(userBD);
+        this.userBD = user;
     }
 
-    public String getPassBD() {
+    public StringProperty getPassBD() {
         return passBD;
     }
 
     public void setPassBD(String passBD) {
-        this.passBD = passBD;
+        StringProperty pass = new SimpleStringProperty();
+        pass.setValue(passBD);
+        this.passBD = pass;
     }
 
     public Boolean getImpresoraActiva() {
@@ -108,12 +123,14 @@ public class Configuration {
         this.impresoraActiva = impresoraActiva;
     }
 
-    public String getPuertoImpresion() {
+    public StringProperty getPuertoImpresion() {
         return puertoImpresion;
     }
 
     public void setPuertoImpresion(String puertoImpresion) {
-        this.puertoImpresion = puertoImpresion;
+        StringProperty puerto = new SimpleStringProperty();
+        puerto.setValue(puertoImpresion);
+        this.puertoImpresion = puerto;
     }
 
     public Boolean getScannerActivo() {
@@ -124,12 +141,14 @@ public class Configuration {
         this.scannerActivo = scannerActivo;
     }
 
-    public Integer getScannerPort() {
+    public StringProperty getScannerPort() {
         return scannerPort;
     }
 
-    public void setScannerPort(Integer scannerPort) {
-        this.scannerPort = scannerPort;
+    public void setScannerPort(String scannerPort) {
+        StringProperty port = new SimpleStringProperty();
+        port.setValue(scannerPort);
+        this.scannerPort = port;
     }
 
     public Integer getScannerBaudRate() {

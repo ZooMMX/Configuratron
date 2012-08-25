@@ -29,7 +29,7 @@ public class Bascula {
         return puerto;
     }
 
-    public void setPuerto(String puerto) {
+    public void setPort(String puerto) {
         this.puerto = puerto;
     }
 
