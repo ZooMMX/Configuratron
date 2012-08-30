@@ -16,3 +16,16 @@ task "create-dirs" << {
    sourceSets*.java.srcDirs*.each { it.mkdirs() }
    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
 }
+
+repositories {
+    mavenCentral()
+    mavenRepo urls: "http://maven.springframework.org/milestone"
+}
+
+dependencies {
+    compile (
+            'mysql:mysql-connector-java:5.1.21'
+    )
+    compile files('lib/FXExperienceControls.jar')
+
+}

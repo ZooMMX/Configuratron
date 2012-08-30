@@ -1,5 +1,6 @@
 package phesus.configuratron.model;
 
+import com.thoughtworks.xstream.XStream;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -7,7 +8,9 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.xpath.*;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -33,14 +36,21 @@ public class XMLConfigReader {
         DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
         domFactory.setNamespaceAware(true);
         DocumentBuilder builder = domFactory.newDocumentBuilder();
-        doc = builder.parse("config.xml");
+        doc = builder.parse( config.getConfigFile() );
 
-        config.setResolucionAlto( Integer.valueOf((String) readProperty("//resolucionPantalla/@ancho", XPathConstants.STRING)) );
-        config.setResolucionAncho(Integer.valueOf((String) readProperty("//resolucionPantalla/@alto", XPathConstants.STRING)) );
+        config.setResolucionAncho( Integer.valueOf((String) readProperty("//resolucionPantalla/@ancho", XPathConstants.STRING)) );
+        config.setResolucionAlto ( Integer.valueOf((String) readProperty("//resolucionPantalla/@alto", XPathConstants.STRING)) );
 
         config.setIdAlmacen(Integer.valueOf((String) readProperty("//idAlmacen", XPathConstants.STRING)));
         config.setIdCaja   (Integer.valueOf((String) readProperty("//idCaja"   , XPathConstants.STRING)));
-        config.setTipoCorte(Integer.valueOf((String) readProperty("//tipoCorte", XPathConstants.STRING)));
+        TipoCorte tipoCorte;
+        Integer tipoCorteInt = Integer.valueOf((String) readProperty("//tipoCorte", XPathConstants.STRING));
+        switch (tipoCorteInt) {
+            case 1:   tipoCorte = TipoCorte.SENCILLO; break;
+            case 2:   tipoCorte = TipoCorte.DUAL; break;
+            default:  tipoCorte = TipoCorte.SENCILLO; break;
+        }
+        config.setTipoCorte(tipoCorte);
 
         config.setUrlNadesico((String) readProperty("//URLServidor/text()", XPathConstants.STRING));
         config.setUrlMySQL   ((String) readProperty("//URLMySQL/text()"   , XPathConstants.STRING));
@@ -61,9 +71,13 @@ public class XMLConfigReader {
         } catch (Exception e) {
             config.setScannerActivo( false );
         }
-        config.setScannerPort    ( (String) readProperty("//scannerPort"    , XPathConstants.STRING) );
         try {
-            config.setScannerBaudRate( Integer.valueOf((String) readProperty("//scannerBaudRate", XPathConstants.STRING)) );
+            config.setScannerPort    ( (String) readProperty("//ScannerPort"    , XPathConstants.STRING) );
+        } catch (Exception e) {
+            config.setScannerPort ( "" );
+        }
+        try {
+            config.setScannerBaudRate( Integer.valueOf((String) readProperty("//ScannerBaudRate", XPathConstants.STRING)) );
         } catch (Exception e) {
             config.setScannerBaudRate( 0 );
         }

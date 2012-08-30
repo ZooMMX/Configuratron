@@ -27,7 +27,7 @@ public class ConfiguratorApp extends Application {
             Configuration config = dao.read();
             System.out.println("[.]"+config.getUrlNadesico());
 
-            AnchorPane page = (AnchorPane) FXMLLoader.load(ConfiguratorApp.class.getResource("configurator.fxml"));
+            AnchorPane page = (AnchorPane) FXMLLoader.load(ConfiguratorApp.class.getResource("view/configurator.fxml"));
             Scene scene = new Scene(page);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Configuratron");

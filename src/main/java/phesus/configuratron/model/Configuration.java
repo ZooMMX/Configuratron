@@ -10,23 +10,24 @@ import javafx.beans.property.*;
  * To change this template use File | Settings | File Templates.
  */
 public class Configuration {
+    private String          configFile = "config.xml";
     private IntegerProperty resolucionAncho;
-    private Integer resolucionAlto;
-    private Integer idSucursal;
-    private Integer idCaja;
-    private Integer tipoCorte;
+    private IntegerProperty resolucionAlto;
+    private IntegerProperty idSucursal;
+    private IntegerProperty idCaja;
+    private ObjectProperty<TipoCorte> tipoCorte;
 
-    private StringProperty urlNadesico;
-    private StringProperty urlMySQL;
-    private StringProperty userBD;
-    private StringProperty passBD;
+    private StringProperty urlNadesico = new SimpleStringProperty("");
+    private StringProperty urlMySQL    = new SimpleStringProperty("");
+    private StringProperty userBD      = new SimpleStringProperty("");
+    private StringProperty passBD      = new SimpleStringProperty("");
 
     private BooleanProperty impresoraActiva;
-    private StringProperty  puertoImpresion;
+    private StringProperty  puertoImpresion = new SimpleStringProperty("");
 
     private BooleanProperty scannerActivo;
-    private StringProperty  scannerPort;
-    private Integer scannerBaudRate;
+    private StringProperty  scannerPort     = new SimpleStringProperty("");
+    private IntegerProperty scannerBaudRate = new SimpleIntegerProperty(0);
 
     private Bascula bascula;
 
@@ -40,36 +41,43 @@ public class Configuration {
         this.resolucionAncho = res;
     }
 
-    public Integer getResolucionAlto() {
+    public IntegerProperty getResolucionAlto() {
         return resolucionAlto;
     }
 
     public void setResolucionAlto(Integer resolucionAlto) {
-        this.resolucionAlto = resolucionAlto;
+        IntegerProperty res = new SimpleIntegerProperty();
+        res.set(resolucionAlto);
+        this.resolucionAlto = res;
     }
 
-    public Integer getIdSucursal() {
+    public IntegerProperty getIdAlmacen() {
         return idSucursal;
     }
 
     public void setIdAlmacen(Integer idSucursal) {
-        this.idSucursal = idSucursal;
+        IntegerProperty id = new SimpleIntegerProperty();
+        id.set(idSucursal);
+        this.idSucursal = id;
     }
 
-    public Integer getIdCaja() {
+    public IntegerProperty getIdCaja() {
         return idCaja;
     }
 
     public void setIdCaja(Integer idCaja) {
-        this.idCaja = idCaja;
+        IntegerProperty id = new SimpleIntegerProperty();
+        id.set(idCaja);
+        this.idCaja = id;
     }
 
-    public Integer getTipoCorte() {
+    public ObjectProperty<TipoCorte> getTipoCorte() {
         return tipoCorte;
     }
 
-    public void setTipoCorte(Integer tipoCorte) {
-        this.tipoCorte = tipoCorte;
+    public void setTipoCorte(TipoCorte tipoCorte) {
+        ObjectProperty<TipoCorte> obj = new SimpleObjectProperty<>(tipoCorte);
+        this.tipoCorte = obj;
     }
 
     public StringProperty getUrlNadesico() {
@@ -152,12 +160,14 @@ public class Configuration {
         this.scannerPort = port;
     }
 
-    public Integer getScannerBaudRate() {
+    public IntegerProperty getScannerBaudRate() {
         return scannerBaudRate;
     }
 
     public void setScannerBaudRate(Integer scannerBaudRate) {
-        this.scannerBaudRate = scannerBaudRate;
+        IntegerProperty baud = new SimpleIntegerProperty();
+        baud.set(scannerBaudRate);
+        this.scannerBaudRate = baud;
     }
 
     public Bascula getBascula() {
@@ -167,4 +177,13 @@ public class Configuration {
     public void setBascula(Bascula bascula) {
         this.bascula = bascula;
     }
+
+    public String getConfigFile() {
+        return configFile;
+    }
+
+    public void setConfigFile(String configFile) {
+        this.configFile = configFile;
+    }
 }
+

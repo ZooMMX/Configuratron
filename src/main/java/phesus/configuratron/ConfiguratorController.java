@@ -9,19 +9,29 @@ package phesus.configuratron;
  */
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import org.xml.sax.SAXException;
 import phesus.configuratron.model.Configuration;
 import phesus.configuratron.model.ConfigurationDao;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
+import com.fxexperience.javafx.scene.control.*;
+import phesus.configuratron.model.TipoCorte;
+import phesus.configuratron.model.XMLConfigWriter;
+import phesus.configuratron.view.PersistentButtonToggleGroup;
 
 
 public class ConfiguratorController
@@ -32,8 +42,10 @@ public class ConfiguratorController
     @FXML
     private TitledPane x3;
 
-    @FXML
-    private TextField resolucionAncho;
+    @FXML private IntegerField resolucionAncho;
+    @FXML private IntegerField resolucionAlto;
+    @FXML private IntegerField idAlmacen;
+    @FXML private IntegerField idCaja;
 
     @FXML
     private TextField urlServidor;
@@ -47,6 +59,9 @@ public class ConfiguratorController
     @FXML
     private TextField passBD;
 
+    @FXML
+    private ComboBox<TipoCorte> tipoCorte;
+
     @FXML private ToggleButton impresoraActiva;
 
     @FXML private ToggleButton impresoraInactiva;
@@ -59,23 +74,40 @@ public class ConfiguratorController
 
     @FXML private TextField puertoScanner;
 
+    @FXML private IntegerField scannerBaud;
+
     @FXML private ToggleButton basculaActiva;
 
     @FXML private ToggleButton basculaInactiva;
 
     @FXML private TextField portScale;
 
-    @FXML private TextField baudScale;
+    @FXML private IntegerField baudScale;
 
-    @FXML private TextField bitsScale;
+    @FXML private IntegerField bitsScale;
 
-    @FXML private TextField stopBitScale;
+    @FXML private IntegerField stopBitScale;
 
     @FXML private TextField parityScale;
 
     @FXML private TextField stopCharScale;
 
     @FXML private TextField weightCommandScale;
+
+    @FXML public void aplicarCambios(ActionEvent event) {
+        XMLConfigWriter configWriter = new XMLConfigWriter();
+        configWriter.write(config);
+    }
+
+    @FXML public void cerrar(ActionEvent event) {
+        Platform.exit();
+    }
+
+    @FXML public void probarMySQL(ActionEvent event) {
+        System.out.println( "MySQL test: " + mySQLTester(config.getUrlMySQL().get(),
+                                                         config.getUserBD().get(),
+                                                         config.getPassBD().get()) );
+    }
 
     public ConfiguratorController() {
 
@@ -98,6 +130,20 @@ public class ConfiguratorController
         assert x3 != null : "fx:id=\"x3\" was not injected: check your FXML file 'configurator.fxml'.";
         assert impresoraActiva != null : "fx:id=\"impresoraActiva\" was not injected: check your FXML file 'configurator.fxml'.";
 
+
+        // ---- Configuración general
+
+        resolucionAlto.valueProperty().bindBidirectional(config.getResolucionAlto());
+        resolucionAncho.valueProperty().bindBidirectional(config.getResolucionAncho());
+        idAlmacen.valueProperty().bindBidirectional(config.getIdAlmacen());
+        idCaja.valueProperty().bindBidirectional(config.getIdCaja());
+        tipoCorte.getItems().add(TipoCorte.SENCILLO);
+        tipoCorte.getItems().add(TipoCorte.DUAL);
+        tipoCorte.getSelectionModel().select(config.getTipoCorte().get());
+        config.getTipoCorte().bind( tipoCorte.getSelectionModel().selectedItemProperty() );
+
+        // ---- Datos de conexión
+
         urlServidor.textProperty().bindBidirectional(config.getUrlNadesico());
         urlBD.textProperty().bindBidirectional(config.getUrlMySQL());
         userBD.textProperty().bindBidirectional(config.getUserBD());
@@ -119,6 +165,7 @@ public class ConfiguratorController
         scannerActivo.selectedProperty().bindBidirectional(config.getScannerActivo());
 
         puertoScanner.textProperty().bindBidirectional(config.getScannerPort());
+        scannerBaud.valueProperty().bindBidirectional(config.getScannerBaudRate());
 
         // ---- Báscula
 
@@ -128,9 +175,31 @@ public class ConfiguratorController
         basculaActiva.selectedProperty().bindBidirectional(config.getBascula().getActiva());
 
         portScale.textProperty().bindBidirectional(config.getBascula().getPort());
+        baudScale.valueProperty().bindBidirectional(config.getBascula().getBaud());
+        bitsScale.valueProperty().bindBidirectional(config.getBascula().getBits());
+        stopBitScale.valueProperty().bindBidirectional(config.getBascula().getStopBits());
         parityScale.textProperty().bindBidirectional(config.getBascula().getParity());
         stopCharScale.textProperty().bindBidirectional(config.getBascula().getStopChar());
         weightCommandScale.textProperty().bindBidirectional(config.getBascula().getWeightCommand());
+    }
+
+    public Boolean mySQLTester( String url, String user, String pass ) {
+        Boolean result = false;
+        try {
+            Statement stmt;
+
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, user, pass);
+            stmt = con.createStatement();
+            result = stmt.execute("show tables;");
+
+            con.close();
+            stmt.close();
+        } catch (Exception e) {
+            result = false;
+        } finally {
+            return result;
+        }
     }
 
 }

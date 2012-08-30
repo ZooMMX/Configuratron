@@ -1,4 +1,4 @@
-package phesus.configuratron;
+package phesus.configuratron.view;
 
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
@@ -14,8 +14,8 @@ import javafx.scene.input.MouseEvent;
  * Time: 03:25 AM
  * To change this template use File | Settings | File Templates.
  */
-class PersistentButtonToggleGroup extends ToggleGroup {
-    PersistentButtonToggleGroup() {
+public class PersistentButtonToggleGroup extends ToggleGroup {
+    public PersistentButtonToggleGroup() {
         super();
         getToggles().addListener(new ListChangeListener<Toggle>() { @Override public void onChanged(Change<? extends Toggle> c) {
             while (c.next()) for (final Toggle addedToggle : c.getAddedSubList())

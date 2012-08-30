@@ -1,9 +1,6 @@
 package phesus.configuratron.model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,9 +12,9 @@ import javafx.beans.property.StringProperty;
 public class Bascula {
     private BooleanProperty activa;
     private StringProperty port;
-    private Integer baud;
-    private Integer bits;
-    private Integer stopBits;
+    private IntegerProperty baud;
+    private IntegerProperty bits;
+    private IntegerProperty stopBits;
     private StringProperty  parity;
     private StringProperty  stopChar;
     private StringProperty  weightCommand;
@@ -42,28 +39,34 @@ public class Bascula {
         this.port = port;
     }
 
-    public Integer getBaud() {
+    public IntegerProperty getBaud() {
         return baud;
     }
 
     public void setBaud(Integer baud) {
-        this.baud = baud;
+        IntegerProperty b = new SimpleIntegerProperty();
+        b.set(baud);
+        this.baud = b;
     }
 
-    public Integer getBits() {
+    public IntegerProperty getBits() {
         return bits;
     }
 
     public void setBits(Integer bits) {
-        this.bits = bits;
+        IntegerProperty b = new SimpleIntegerProperty();
+        b.set(bits);
+        this.bits = b;
     }
 
-    public Integer getStopBits() {
+    public IntegerProperty getStopBits() {
         return stopBits;
     }
 
     public void setStopBits(Integer stopBits) {
-        this.stopBits = stopBits;
+        IntegerProperty stop = new SimpleIntegerProperty();
+        stop.set(stopBits);
+        this.stopBits = stop;
     }
 
     public StringProperty getParity() {
