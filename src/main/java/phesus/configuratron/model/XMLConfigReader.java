@@ -9,7 +9,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.xpath.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -35,6 +37,7 @@ public class XMLConfigReader {
         DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
         domFactory.setNamespaceAware(true);
         DocumentBuilder builder = domFactory.newDocumentBuilder();
+
         doc = builder.parse( config.getConfigFile() );
 
         config.setResolucionAncho( Integer.valueOf((String) readProperty("//resolucionPantalla/@ancho", XPathConstants.STRING)) );
@@ -122,4 +125,5 @@ public class XMLConfigReader {
         Object result = expr.evaluate(doc, XPathConstants.STRING);
         return result;
     }
+
 }

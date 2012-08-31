@@ -29,4 +29,9 @@ public class ConfigurationDao {
         return config;
     }
 
+    public void write(Configuration config) {
+        XMLConfigWriter configWriter = new XMLConfigWriter();
+        configWriter.write(config);
+    }
+
 }

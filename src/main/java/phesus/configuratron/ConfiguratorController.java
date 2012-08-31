@@ -18,28 +18,24 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
-import phesus.configuratron.model.Configuration;
-import phesus.configuratron.model.ConfigurationDao;
+import phesus.configuratron.model.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import com.fxexperience.javafx.scene.control.*;
-import phesus.configuratron.model.TipoCorte;
-import phesus.configuratron.model.XMLConfigWriter;
 import phesus.configuratron.view.PersistentButtonToggleGroup;
 
 
-public class ConfiguratorController
-        implements Initializable {
-    private ConfigurationDao dao;
+public class ConfiguratorController implements Initializable {
+
+    private ConfigurationDao daoConfig;
     private Configuration config;
+    private TemplatesDao daoTemplates;
+    private Templates templates;
 
     final Logger logger = LoggerFactory.getLogger( ConfiguratorController.class );
 
@@ -51,20 +47,11 @@ public class ConfiguratorController
     @FXML private IntegerField idAlmacen;
     @FXML private IntegerField idCaja;
 
-    @FXML
-    private TextField urlServidor;
-
-    @FXML
-    private TextField urlBD;
-
-    @FXML
-    private TextField userBD;
-
-    @FXML
-    private TextField passBD;
-
-    @FXML
-    private ComboBox<TipoCorte> tipoCorte;
+    @FXML private TextField urlServidor;
+    @FXML private TextField urlBD;
+    @FXML private TextField userBD;
+    @FXML private TextField passBD;
+    @FXML private ComboBox<TipoCorte> tipoCorte;
 
     @FXML private ToggleButton impresoraActiva;
 
@@ -98,11 +85,20 @@ public class ConfiguratorController
 
     @FXML private TextField weightCommandScale;
 
-    @FXML public void aplicarCambios(ActionEvent event) {
-        XMLConfigWriter configWriter = new XMLConfigWriter();
-        configWriter.write(config);
+    @FXML private TextArea plantillaTicket;
 
-        logger.info("Cambios aplicados");
+    @FXML private TextArea plantillaCorte;
+
+    @FXML public void aplicarCambios(ActionEvent event) {
+
+        try {
+            daoConfig.write(config);
+            daoTemplates.save(templates);
+            logger.info("Cambios aplicados");
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+
     }
 
     @FXML public void cerrar(ActionEvent event) {
@@ -127,9 +123,9 @@ public class ConfiguratorController
 
     public ConfiguratorController() {
 
-        dao = new ConfigurationDao();
+        daoConfig = new ConfigurationDao();
         try {
-            config = dao.read();
+            config = daoConfig.read();
 
         } catch (ParserConfigurationException e) {
             logger.error( e.getMessage(), e );
@@ -140,6 +136,14 @@ public class ConfiguratorController
         } catch (XPathExpressionException e) {
             logger.error( e.getMessage(), e );
         }
+
+        daoTemplates = new TemplatesDao();
+        try {
+            templates = daoTemplates.getTemplates();
+        } catch (IOException e) {
+            logger.error( e.getMessage(), e );
+        }
+
     }
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -197,6 +201,12 @@ public class ConfiguratorController
         parityScale.textProperty().bindBidirectional(config.getBascula().getParity());
         stopCharScale.textProperty().bindBidirectional(config.getBascula().getStopChar());
         weightCommandScale.textProperty().bindBidirectional(config.getBascula().getWeightCommand());
+
+        // ---- Plantillas
+
+        plantillaCorte .textProperty().bindBidirectional( templates.getPlantillaCorte() );
+        plantillaTicket.textProperty().bindBidirectional(templates.getPlantillaTicket());
+
     }
 
     public Boolean mySQLTester( String url, String user, String pass ) {
