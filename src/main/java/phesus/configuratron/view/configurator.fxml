@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<?scenebuilder-classpath-element ../../../../../../../../Bibliotecas/FXExperience/FXExperienceControls/dist/FXExperienceControls.jar?>
+<?scenebuilder-classpath-element ../../../../../../lib/FXExperienceControls.jar?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.9998779296875" prefWidth="488.999977929685" xmlns:fx="http://javafx.com/fxml" fx:controller="phesus.configuratron.ConfiguratorController">
   <children>
