@@ -76,7 +76,7 @@ public class Configuration {
     }
 
     public void setTipoCorte(TipoCorte tipoCorte) {
-        ObjectProperty<TipoCorte> obj = new SimpleObjectProperty<>(tipoCorte);
+        ObjectProperty<TipoCorte> obj = new SimpleObjectProperty<TipoCorte>(tipoCorte);
         this.tipoCorte = obj;
     }
 

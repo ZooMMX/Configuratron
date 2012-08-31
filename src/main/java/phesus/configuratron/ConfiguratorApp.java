@@ -13,6 +13,8 @@ package phesus.configuratron;
 
 public class ConfiguratorApp extends Application {
 
+    final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ConfiguratorApp.class);
+
     /**
     * @param args the command line arguments
     */
@@ -25,7 +27,6 @@ public class ConfiguratorApp extends Application {
         try {
             ConfigurationDao dao = new ConfigurationDao();
             Configuration config = dao.read();
-            System.out.println("[.]"+config.getUrlNadesico());
 
             AnchorPane page = (AnchorPane) FXMLLoader.load(ConfiguratorApp.class.getResource("view/configurator.fxml"));
             Scene scene = new Scene(page);
@@ -33,7 +34,7 @@ public class ConfiguratorApp extends Application {
             primaryStage.setTitle("Configuratron");
             primaryStage.show();
         } catch (Exception ex) {
-            Logger.getLogger(ConfiguratorApp.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error( ex.getMessage(), ex );
         }
     }
 }

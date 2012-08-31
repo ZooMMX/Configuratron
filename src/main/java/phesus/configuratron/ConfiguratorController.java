@@ -22,6 +22,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 import phesus.configuratron.model.Configuration;
 import phesus.configuratron.model.ConfigurationDao;
@@ -38,6 +40,8 @@ public class ConfiguratorController
         implements Initializable {
     private ConfigurationDao dao;
     private Configuration config;
+
+    final Logger logger = LoggerFactory.getLogger( ConfiguratorController.class );
 
     @FXML
     private TitledPane x3;
@@ -97,6 +101,8 @@ public class ConfiguratorController
     @FXML public void aplicarCambios(ActionEvent event) {
         XMLConfigWriter configWriter = new XMLConfigWriter();
         configWriter.write(config);
+
+        logger.info("Cambios aplicados");
     }
 
     @FXML public void cerrar(ActionEvent event) {
@@ -104,9 +110,19 @@ public class ConfiguratorController
     }
 
     @FXML public void probarMySQL(ActionEvent event) {
-        System.out.println( "MySQL test: " + mySQLTester(config.getUrlMySQL().get(),
-                                                         config.getUserBD().get(),
-                                                         config.getPassBD().get()) );
+            Boolean testResult = mySQLTester(config.getUrlMySQL().get(),
+                     config.getUserBD().get(),
+                     config.getPassBD().get()) ;
+
+            String testMsg= "";
+
+            if ( testResult ) {
+                testMsg = "Conexión exitosa" ;
+            } else {
+                testMsg = "Conexión fallida, los datos son erróneos o la BD no se está ejecutando." ;
+            }
+
+            logger.info( testMsg );
     }
 
     public ConfiguratorController() {
@@ -116,13 +132,13 @@ public class ConfiguratorController
             config = dao.read();
 
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         } catch (SAXException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         } catch (XPathExpressionException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         }
     }
 

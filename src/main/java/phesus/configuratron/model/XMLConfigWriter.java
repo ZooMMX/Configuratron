@@ -1,6 +1,7 @@
 package phesus.configuratron.model;
 
-import com.thoughtworks.xstream.XStream;
+import org.apache.log4j.spi.LoggerFactory;
+import org.slf4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -26,6 +27,7 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class XMLConfigWriter {
+    final Logger logger = org.slf4j.LoggerFactory.getLogger(XMLConfigWriter.class);
     public void write(Configuration config) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -89,15 +91,15 @@ public class XMLConfigWriter {
             transformer.transform(source, result);
 
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         } catch (SAXException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         } catch (TransformerConfigurationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         } catch (TransformerException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error( e.getMessage(), e );
         }
     }
 }

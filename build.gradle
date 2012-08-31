@@ -24,8 +24,11 @@ repositories {
 
 dependencies {
     compile (
-            'mysql:mysql-connector-java:5.1.21'
+            'mysql:mysql-connector-java:5.1.21',
+			[group: 'org.slf4j'           , name: 'slf4j-log4j12'          , version: '1.6.1']
     )
-    compile files('lib/FXExperienceControls.jar')
+    compile files(
+			'lib/FXExperienceControls.jar',
+			'lib/JavaFxDialog.jar')
 
 }

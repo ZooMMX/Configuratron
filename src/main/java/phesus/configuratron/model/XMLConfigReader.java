@@ -1,6 +1,5 @@
 package phesus.configuratron.model;
 
-import com.thoughtworks.xstream.XStream;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
