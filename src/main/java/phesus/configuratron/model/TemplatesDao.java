@@ -15,8 +15,8 @@ public class TemplatesDao {
     public Templates getTemplates() throws IOException {
         Templates templates = new Templates();
 
-        templates.setPlantillaCorte(readFile("FormatoCorte.txt"));
-        templates.setPlantillaTicket(readFile("FormatoTicket.txt"));
+        templates.setPlantillaCorte(readFile("Plantillas/FormatoCorte.txt"));
+        templates.setPlantillaTicket(readFile("Plantillas/FormatoTicket.txt"));
 
         return templates;
 
@@ -48,8 +48,8 @@ public class TemplatesDao {
     }
 
     public void save(Templates templates) throws IOException {
-        writeFile( "FormatoCorte.txt" , templates.getPlantillaCorte().get() );
-        writeFile( "FormatoTicket.txt", templates.getPlantillaTicket().get());
+        writeFile( "Plantillas/FormatoCorte.txt" , templates.getPlantillaCorte().get() );
+        writeFile( "Plantillas/FormatoTicket.txt", templates.getPlantillaTicket().get());
     }
 
     private void writeFile(String filename, String content) throws IOException {
