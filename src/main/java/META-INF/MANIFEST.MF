@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: mysql-connector-java-5.1.21.jar slf4j-api-1.6.1.jar JavaFx
+ Dialog.jar slf4j-log4j12-1.6.1.jar FXExperienceControls.jar FXExperie
+ nceControls.jar log4j-1.2.16.jar jfxrt.jar
+Main-Class: phesus.configuratron.ConfiguratorApp
+

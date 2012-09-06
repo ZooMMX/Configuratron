@@ -25,8 +25,6 @@ public class ConfiguratorApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            ConfigurationDao dao = new ConfigurationDao();
-            Configuration config = dao.read();
 
             AnchorPane page = (AnchorPane) FXMLLoader.load(ConfiguratorApp.class.getResource("view/configurator.fxml"));
             Scene scene = new Scene(page);

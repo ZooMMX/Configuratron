@@ -141,6 +141,7 @@ public class ConfiguratorController implements Initializable {
         try {
             templates = daoTemplates.getTemplates();
         } catch (IOException e) {
+            templates = new Templates();
             logger.error( e.getMessage(), e );
         }
 

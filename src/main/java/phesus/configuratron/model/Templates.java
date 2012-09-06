@@ -13,6 +13,11 @@ public class Templates {
     private StringProperty plantillaTicket;
     private StringProperty plantillaCorte;
 
+    public Templates() {
+        plantillaTicket = new SimpleStringProperty("");
+        plantillaCorte  = new SimpleStringProperty("");
+    }
+
     public StringProperty getPlantillaTicket() {
         return plantillaTicket;
     }

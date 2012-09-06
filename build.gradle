@@ -29,6 +29,7 @@ dependencies {
     )
     compile files(
 			'lib/FXExperienceControls.jar',
-			'lib/JavaFxDialog.jar')
+			'lib/JavaFxDialog.jar',
+            'lib/jfxrt.jar')
 
 }
