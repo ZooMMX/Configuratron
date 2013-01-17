@@ -1,5 +1,6 @@
 package phesus.configuratron;
 
+ import java.io.IOException;
  import java.util.logging.Level;
  import java.util.logging.Logger;
  import javafx.application.Application;
@@ -25,14 +26,18 @@ public class ConfiguratorApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-
-            AnchorPane page = (AnchorPane) FXMLLoader.load(ConfiguratorApp.class.getResource("view/configurator.fxml"));
-            Scene scene = new Scene(page);
+            Scene scene = initConfigurator();
             primaryStage.setScene(scene);
             primaryStage.setTitle("Configuratron");
             primaryStage.show();
         } catch (Exception ex) {
             logger.error( ex.getMessage(), ex );
         }
+    }
+
+    public Scene initConfigurator() throws IOException {
+        AnchorPane page = (AnchorPane) FXMLLoader.load(ConfiguratorApp.class.getResource("view/configurator.fxml"));
+        Scene scene = new Scene(page);
+        return scene;
     }
 }
